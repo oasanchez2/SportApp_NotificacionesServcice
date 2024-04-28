@@ -4,31 +4,31 @@ from ..commands.get_notificacion import  GetNotificacion
 from ..commands.get_notificacion_user import GetNotificacionUser
 from ..commands.reset_notificacion import ResetNotificacion
 
-notificacion_blueprint = Blueprint('notificacion', __name__)
+notificacion_blueprint = Blueprint('notificaciones', __name__)
 
-@notificacion_blueprint.route('/notificacion', methods = ['POST'])
+@notificacion_blueprint.route('/notificaciones', methods = ['POST'])
 def create():
     notificacion = CreateNotificacion(request.get_json()).execute()
     return jsonify(notificacion), 201
 
-@notificacion_blueprint.route('/notificacion/<id>', methods = ['GET'])
+@notificacion_blueprint.route('/notificaciones/<id>', methods = ['GET'])
 def show(id):
     """ Authenticate(auth_token()).execute() """
     notificacion = GetNotificacion(id).execute() 
     return jsonify(notificacion)
 
-@notificacion_blueprint.route('/notificacion/user/<id>', methods = ['GET'])
+@notificacion_blueprint.route('/notificaciones/user/<id>', methods = ['GET'])
 def show_notficacion_user(id):
     """ Authenticate(auth_token()).execute() """
     notificacion = GetNotificacionUser(id).execute()
     return jsonify(notificacion)
 
-@notificacion_blueprint.route('/notificacion/reset', methods = ['POST'])
+@notificacion_blueprint.route('/notificaciones/reset', methods = ['POST'])
 def reset():
     ResetNotificacion().execute()
     return jsonify({'status': 'OK'})
 
-@notificacion_blueprint.route('/notificacion/ping', methods = ['GET'])
+@notificacion_blueprint.route('/notificaciones/ping', methods = ['GET'])
 def ping():
     return 'pong'
 
